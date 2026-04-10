@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <meta name="description" content="SOMI-TECH — The thin line between YOU & TECH. IT Support, Web Dev, Mobile Apps, AI Prompting & more. Somina Oje, Port Harcourt Nigeria."/>
+  <meta name="theme-color" content="#0a0805"/>
+  <meta property="og:title" content="SOMI-TECH | Somina Oje"/>
+  <meta property="og:description" content="The thin line between YOU & TECH."/>
+  <title>SOMI-TECH | Somina Oje</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ════════════════════════════════════════════════
+       TOKENS & VARIABLES
+    ════════════════════════════════════════════════ */
+    :root {
+      --bg:         #0a0805;
+      --bg2:        #0e0c08;
+      --bg3:        #141209;
+      --bg4:        #1a1710;
+      --gold:       #c9891c;
+      --gold2:      #e8a832;
+      --gold3:      rgba(201,137,28,0.13);
+      --gold4:      rgba(201,137,28,0.06);
+      --cream:      #f5ede0;
+      --muted:      #6b6255;
+      --muted2:     #4a4236;
+      --border:     rgba(201,137,28,0.18);
+      --border2:    rgba(201,137,28,0.08);
+      --green:      #22c55e;
+      --blue:       #3b82f6;
+      --purple:     #a855f7;
+      --radius:     5px;
+      --radius2:    10px;
+      --ff-d:       'Bebas Neue', sans-serif;
+      --ff-b:       'Syne', sans-serif;
+      --ff-m:       'Space Mono', monospace;
+      --ff-dm:      'DM Mono', monospace;
+      --glow:       0 0 30px rgba(201,137,28,0.25);
+      --glow2:      0 0 60px rgba(201,137,28,0.15);
+    }
+
+    /* ════════════════════════════════════════════════
+       RESET
+    ════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--ff-b);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; }
+
+    /* ════════════════════════════════════════════════
+       SCROLLBAR
+    ════════════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* ════════════════════════════════════════════════
+       CUSTOM CURSOR — DESKTOP ONLY
+    ════════════════════════════════════════════════ */
+    @media (pointer: fine) {
+      body { cursor: none; }
+      #cur, #cur-ring {
+        position: fixed; top: 0; left: 0;
+        border-radius: 50%; pointer-events: none;
+        transform: translate(-50%,-50%); z-index: 9999;
+      }
+      #cur {
+        width: 8px; height: 8px;
+        background: var(--gold2);
+        box-shadow: 0 0 12px var(--gold);
+        transition: transform .15s, width .2s, height .2s;
+      }
+      #cur-ring {
+        width: 32px; height: 32px;
+        border: 1px solid rgba(201,137,28,0.45);
+        z-index: 9998;
+        transition: width .3s cubic-bezier(.25,.46,.45,.94),
+                    height .3s cubic-bezier(.25,.46,.45,.94),
+                    border-color .3s;
+      }
+      body.cur-hover #cur { transform: translate(-50%,-50%) scale(2.5); background: transparent; border: 1px solid var(--gold); }
+      body.cur-hover #cur-ring { width: 56px; height: 56px; border-color: rgba(201,137,28,0.22); }
+    }
+
+    /* ════════════════════════════════════════════════
+       GRAIN OVERLAY
+    ════════════════════════════════════════════════ */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 9990;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
+      opacity: .5; mix-blend-mode: overlay;
+    }
+
+    /* ════════════════════════════════════════════════
+       LOADING SCREEN
+    ════════════════════════════════════════════════ */
+    #loader {
+      position: fixed; inset: 0; z-index: 9995;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.5rem;
+    }
+    #loader.done { animation: loaderOut .6s .1s forwards ease-in; }
+    .loader-logo {
+      font-family: var(--ff-d); font-size: 3.5rem;
+      letter-spacing: .1em; color: var(--gold2);
+      animation: loaderPulse 1s ease-in-out infinite alternate;
+    }
+    .loader-bar-wrap {
+      width: 200px; height: 2px;
+      background: var(--muted2); border-radius: 2px; overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%; background: var(--gold);
+      width: 0%; border-radius: 2px;
+      transition: width .05s linear;
+      box-shadow: 0 0 8px var(--gold);
+    }
+    .loader-pct {
+      font-family: var(--ff-m); font-size: .65rem;
+      letter-spacing: .15em; color: var(--muted);
+    }
+    @keyframes loaderPulse { from { opacity:.6; } to { opacity:1; text-shadow: 0 0 25px rgba(201,137,28,.5); } }
+    @keyframes loaderOut { to { opacity:0; pointer-events:none; visibility:hidden; } }
+
+    /* ════════════════════════════════════════════════
+       NAVBAR
+    ════════════════════════════════════════════════ */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6%;
+      background: rgba(10,8,5,0.75);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      border-bottom: 1px solid var(--border2);
+      transition: padding .35s ease, background .35s ease, border-color .35s ease;
+    }
+    #nav.scrolled {
+      padding: .75rem 6%;
+      background: rgba(10,8,5,0.96);
+      border-color: var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .6rem;
+      font-family: var(--ff-d); font-size: 1.7rem; letter-spacing: .06em;
+      color: var(--gold2); transition: color .2s;
+    }
+    .nav-logo:hover { color: #fff; }
+    .nav-logo-icon {
+      width: 34px; height: 34px; border-radius: 4px;
+      background: var(--gold); display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+      box-shadow: 0 0 14px rgba(201,137,28,.4);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.4rem; }
+    .nav-links a {
+      font-size: .7rem; font-weight: 700; letter-spacing: .13em;
+      text-transform: uppercase; color: var(--muted);
+      position: relative; transition: color .25s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0;
+      width: 0; height: 1px; background: var(--gold2); transition: width .35s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold2); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-cta {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--bg);
+      background: var(--gold); padding: .45rem 1.2rem; border-radius: 2px;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .nav-cta:hover {
+      background: var(--gold2);
+      box-shadow: var(--glow);
+      transform: translateY(-1px);
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--gold2); border-radius: 2px;
+      transition: transform .35s, opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mob-overlay { position: fixed; inset: 0; background: rgba(5,4,2,.75); z-index: 480; display: none; backdrop-filter: blur(4px); }
+    .mob-overlay.open { display: block; }
+    .mob-drawer {
+      position: fixed; top: 0; right: 0;
+      width: 75vw; max-width: 300px; height: 100dvh;
+      background: var(--bg2); border-left: 1px solid var(--border);
+      z-index: 490;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 2.5rem 2.5rem; gap: 0;
+      transform: translateX(110%);
+      transition: transform .45s cubic-bezier(.23,1,.32,1);
+    }
+    .mob-drawer.open { transform: translateX(0); }
+    .mob-drawer a {
+      font-family: var(--ff-d); font-size: 2.4rem; letter-spacing: .04em;
+      color: var(--muted); border-bottom: 1px solid var(--border2);
+      padding: 1.1rem 0; transition: color .2s, padding-left .2s;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .mob-drawer a:hover { color: var(--gold2); padding-left: .4rem; }
+    .mob-drawer a:last-child { border-bottom: none; }
+    .mob-social {
+      display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+    }
+    .mob-social a {
+      font-family: var(--ff-m); font-size: .6rem; letter-spacing: .1em;
+      color: var(--muted); border: 1px solid var(--border);
+      border-radius: 2px; padding: .3rem .65rem;
+      text-transform: uppercase; transition: color .2s, border-color .2s;
+    }
+    .mob-social a:hover { color: var(--gold2); border-color: var(--gold); }
+
+    /* ════════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100dvh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 6% 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      filter: contrast(1.05) saturate(.68);
+      opacity: 0; transition: opacity .7s ease;
+    }
+    .hero-bg img.loaded { opacity: 1; }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(150deg,
+        rgba(10,8,5,.96) 0%,
+        rgba(10,8,5,.82) 40%,
+        rgba(10,8,5,.52) 100%
+      );
+    }
+    .hero-scanlines {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+    .hero-grid-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .03;
+      background-image:
+        linear-gradient(var(--gold) 1px, transparent 1px),
+        linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-bg-word {
+      position: absolute; bottom: 3%; right: 3%;
+      font-family: var(--ff-d); font-size: clamp(6rem, 20vw, 18rem);
+      color: rgba(201,137,28,.038); letter-spacing: .02em;
+      pointer-events: none; user-select: none; z-index: 2; white-space: nowrap;
+      animation: bgWordFloat 8s ease-in-out infinite;
+    }
+    @keyframes bgWordFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .hero-content { position: relative; z-index: 3; max-width: 720px; }
+    .hero-status {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-family: var(--ff-m); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted);
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: .35rem .8rem; border-radius: 20px; margin-bottom: 1.4rem;
+      opacity: 0; animation: fadeUp .6s .1s forwards;
+    }
+    .hero-status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-family: var(--ff-m); font-size: .65rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp .6s .22s forwards;
+    }
+    .hero-chip::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .hero-name {
+      font-family: var(--ff-d);
+      font-size: clamp(4rem, 13vw, 8.5rem);
+      line-height: .86; letter-spacing: .03em; color: #fff;
+      margin-bottom: .25rem;
+      opacity: 0; animation: fadeUp .65s .35s forwards;
+    }
+    .hero-name em { color: var(--gold2); font-style: normal; display: block; }
+    .hero-role {
+      font-family: var(--ff-dm); font-size: clamp(.68rem, 1.8vw, .82rem);
+      color: var(--muted); letter-spacing: .1em; margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp .6s .48s forwards;
+    }
+    .hero-role strong { color: var(--gold); }
+    .hero-motto {
+      font-size: clamp(.88rem, 2.2vw, 1.05rem);
+      color: rgba(245,237,224,.68);
+      border-left: 2px solid var(--gold);
+      padding-left: 1.1rem; line-height: 1.72;
+      margin-bottom: 2.6rem;
+      opacity: 0; animation: fadeUp .6s .6s forwards;
+    }
+    .hero-btns {
+      display: flex; flex-wrap: wrap; gap: .9rem;
+      opacity: 0; animation: fadeUp .6s .75s forwards;
+    }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gold); color: var(--bg);
+      font-family: var(--ff-b); font-weight: 800;
+      font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .9rem 1.9rem; border-radius: 2px; border: none; cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .btn-gold::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0); transition: background .2s;
+    }
+    .btn-gold:hover { background: var(--gold2); transform: translateY(-3px); box-shadow: var(--glow); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent; color: var(--cream);
+      font-family: var(--ff-b); font-weight: 700;
+      font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .9rem 1.9rem; border-radius: 2px;
+      border: 1px solid rgba(245,237,224,.2);
+      transition: border-color .25s, color .25s, transform .2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+    .hero-tech-stack {
+      position: absolute; right: 6%; bottom: 8%; z-index: 3;
+      display: flex; flex-direction: column; align-items: flex-end; gap: .4rem;
+      opacity: 0; animation: fadeLeft .7s 1s forwards;
+    }
+    .ts-label {
+      font-family: var(--ff-m); font-size: .55rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .2rem;
+    }
+    .ts-pills { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .3rem; max-width: 200px; }
+    .ts-pill {
+      font-family: var(--ff-m); font-size: .55rem; letter-spacing: .08em;
+      color: var(--gold); border: 1px solid rgba(201,137,28,.3);
+      padding: .18rem .5rem; border-radius: 2px; white-space: nowrap;
+      transition: background .2s, border-color .2s;
+    }
+    .ts-pill:hover { background: var(--gold3); border-color: var(--gold); }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%); z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: .45rem;
+    }
+    .hs-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: bob 2.2s ease-in-out infinite; }
+    .hs-txt { font-family: var(--ff-m); font-size: .56rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+    @keyframes bob { 0%,100% { opacity:.8; transform: scaleY(1); } 50% { opacity:.3; transform: scaleY(1.4); } }
+
+    /* ════════════════════════════════════════════════
+       MARQUEE TICKER
+    ════════════════════════════════════════════════ */
+    .marquee-wrap { background: var(--gold); overflow: hidden; padding: .7rem 0; }
+    .marquee-track { display: flex; gap: 2.8rem; animation: ticker 25s linear infinite; width: max-content; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .m-item {
+      font-family: var(--ff-d); font-size: .9rem; letter-spacing: .1em;
+      color: var(--bg); display: flex; align-items: center; gap: .9rem; flex-shrink: 0;
+    }
+    .m-item::after { content: '◆'; font-size: .45rem; opacity: .35; }
+
+    /* ════════════════════════════════════════════════
+       SECTION BASE
+    ════════════════════════════════════════════════ */
+    .section { padding: 6.5rem 6%; }
+    .bg2 { background: var(--bg2); }
+    .bg3 { background: var(--bg3); }
+    .bg4 { background: var(--bg4); }
+    .chip {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--ff-m); font-size: .63rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .9rem;
+    }
+    .chip::before { content: ''; width: 22px; height: 1px; background: var(--gold); }
+    .sec-title {
+      font-family: var(--ff-d);
+      font-size: clamp(2.5rem, 6vw, 4.6rem);
+      line-height: .92; letter-spacing: .03em; color: #fff; margin-bottom: .6rem;
+    }
+    .sec-title span { color: var(--gold2); }
+    .sec-sub { font-size: .9rem; color: var(--muted); line-height: 1.8; max-width: 480px; }
+
+    /* ════════════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════════════ */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.15fr;
+      gap: 5rem; align-items: center; margin-top: 3.5rem;
+    }
+    .mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 210px 210px;
+      gap: 8px; position: relative;
+    }
+    .mosaic::before {
+      content: ''; position: absolute;
+      top: -14px; left: -14px; right: 14px; bottom: 14px;
+      border: 1px solid var(--border); border-radius: 4px; pointer-events: none;
+    }
+    .mosaic::after {
+      content: ''; position: absolute;
+      top: -8px; left: -8px; right: 8px; bottom: 8px;
+      border: 1px solid var(--border2); border-radius: 4px; pointer-events: none;
+    }
+    .m-photo { overflow: hidden; border-radius: 3px; position: relative; }
+    .m-photo:first-child { grid-row: span 2; }
+    .m-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      filter: saturate(.8) contrast(1.06);
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .4s;
+    }
+    .m-photo:hover img { transform: scale(1.08); filter: saturate(1.12) contrast(1.04); }
+    .exp-badge {
+      position: absolute; bottom: -18px; right: -18px;
+      background: var(--gold); border-radius: 50%;
+      width: 92px; height: 92px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(201,137,28,.48); z-index: 4;
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+    @keyframes badgePulse {
+      0%,100% { box-shadow: 0 8px 32px rgba(201,137,28,.48); }
+      50% { box-shadow: 0 8px 48px rgba(201,137,28,.7); }
+    }
+    .exp-badge .eb-n { font-family: var(--ff-d); font-size: 2rem; color: var(--bg); line-height: 1; }
+    .exp-badge .eb-l { font-size: .44rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--bg); text-align: center; line-height: 1.5; }
+    .about-bio {
+      font-size: .93rem; line-height: 1.9;
+      color: rgba(245,237,224,.75); margin: 1.5rem 0 2.2rem;
+    }
+    .about-bio strong { color: var(--gold2); }
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+      margin-bottom: 2.2rem;
+    }
+    .stat-box { background: var(--bg2); padding: 1.3rem .8rem; text-align: center; transition: background .3s; }
+    .stat-box:hover { background: var(--gold3); }
+    .sn { font-family: var(--ff-d); font-size: 2.2rem; color: var(--gold2); line-height: 1; }
+    .sl { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: .25rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .tag {
+      font-family: var(--ff-m); font-size: .64rem;
+      color: var(--gold); border: 1px solid rgba(201,137,28,.35);
+      padding: .28rem .72rem; border-radius: 2px; letter-spacing: .07em;
+      transition: background .2s, color .2s, border-color .2s, box-shadow .2s;
+    }
+    .tag:hover {
+      background: var(--gold); color: var(--bg);
+      box-shadow: 0 0 12px rgba(201,137,28,.4);
+    }
+
+    /* ════════════════════════════════════════════════
+       SKILLS SECTION
+    ════════════════════════════════════════════════ */
+    .skills-intro { max-width: 600px; margin-bottom: 3.5rem; }
+    .skill-tabs {
+      display: flex; gap: 0; flex-wrap: wrap;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 2.5rem; width: fit-content;
+    }
+    .skill-tab {
+      font-family: var(--ff-m); font-size: .65rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      background: var(--bg2); border: none;
+      padding: .65rem 1.2rem; cursor: pointer;
+      border-right: 1px solid var(--border);
+      transition: background .2s, color .2s;
+    }
+    .skill-tab:last-child { border-right: none; }
+    .skill-tab.active { background: var(--gold); color: var(--bg); }
+    .skill-tab:hover:not(.active) { background: var(--gold3); color: var(--gold2); }
+    .skills-panel { display: none; }
+    .skills-panel.active { display: block; }
+    .skill-category-title {
+      font-family: var(--ff-m); font-size: .65rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem; display: flex; align-items: center; gap: .6rem;
+    }
+    .skill-category-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .skill-bars { display: flex; flex-direction: column; gap: .85rem; margin-bottom: 2rem; }
+    .skill-bar-item { display: flex; align-items: center; gap: 1rem; }
+    .skill-bar-name {
+      font-family: var(--ff-dm); font-size: .72rem; color: var(--cream);
+      letter-spacing: .04em; width: 130px; flex-shrink: 0;
+    }
+    .skill-bar-track {
+      flex: 1; height: 4px; background: var(--bg4);
+      border-radius: 2px; overflow: hidden; position: relative;
+    }
+    .skill-bar-fill {
+      height: 100%; background: linear-gradient(to right, var(--gold), var(--gold2));
+      border-radius: 2px; width: 0%;
+      transition: width 1.2s cubic-bezier(.25,.46,.45,.94);
+      box-shadow: 0 0 8px rgba(201,137,28,.5);
+    }
+    .skill-bar-pct {
+      font-family: var(--ff-m); font-size: .58rem; color: var(--gold);
+      width: 32px; text-align: right; flex-shrink: 0;
+    }
+    .skill-icons-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 1rem;
+    }
+    .skill-icon-card {
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: var(--radius); padding: 1.1rem .75rem;
+      text-align: center; transition: background .25s, border-color .25s, transform .25s;
+      cursor: default;
+    }
+    .skill-icon-card:hover {
+      background: var(--gold3); border-color: var(--border);
+      transform: translateY(-3px);
+    }
+    .sic-ico { font-size: 1.4rem; margin-bottom: .45rem; }
+    .sic-name { font-family: var(--ff-m); font-size: .58rem; color: var(--muted); letter-spacing: .06em; line-height: 1.3; }
+
+    /* ════════════════════════════════════════════════
+       SERVICES
+    ════════════════════════════════════════════════ */
+    .svc-head {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.5px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .svc-card {
+      background: var(--bg2); padding: 2.4rem 2rem 3.2rem;
+      position: relative; overflow: hidden; transition: background .35s;
+    }
+    .svc-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--gold2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .45s cubic-bezier(.25,.46,.45,.94);
+    }
+    .svc-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,137,28,.1) 0%, transparent 70%);
+      opacity: 0; transition: opacity .4s;
+    }
+    .svc-card:hover { background: rgba(201,137,28,.06); }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-card:hover::after { opacity: 1; }
+    .svc-n { font-family: var(--ff-m); font-size: .58rem; color: var(--gold); letter-spacing: .14em; margin-bottom: 1.4rem; opacity: .55; }
+    .svc-ico { font-size: 1.9rem; margin-bottom: .9rem; display: block; position: relative; z-index: 1; }
+    .svc-name { font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: .65rem; line-height: 1.35; position: relative; z-index: 1; }
+    .svc-desc { font-size: .8rem; color: var(--muted); line-height: 1.75; position: relative; z-index: 1; }
+    .svc-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .9rem; position: relative; z-index: 1; }
+    .svc-tag { font-family: var(--ff-m); font-size: .55rem; color: var(--gold); border: 1px solid rgba(201,137,28,.25); padding: .15rem .45rem; border-radius: 2px; letter-spacing: .06em; }
+    .svc-arr {
+      position: absolute; bottom: 1.4rem; right: 1.4rem;
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: .85rem;
+      transition: background .25s, border-color .25s, transform .25s;
+      z-index: 1;
+    }
+    .svc-card:hover .svc-arr { background: var(--gold); color: var(--bg); border-color: var(--gold); transform: rotate(45deg); }
+
+    /* ════════════════════════════════════════════════
+       TERMINAL / CODE SECTION
+    ════════════════════════════════════════════════ */
+    .terminal-section { padding: 4rem 6%; }
+    .terminal-wrap {
+      background: #0d0d0d; border: 1px solid rgba(201,137,28,.2);
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .terminal-bar {
+      background: #1a1a1a; padding: .8rem 1.2rem;
+      display: flex; align-items: center; gap: .6rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .t-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .t-dot.r { background: #ff5f57; }
+    .t-dot.y { background: #ffbd2e; }
+    .t-dot.g { background: #28c840; }
+    .t-title { font-family: var(--ff-m); font-size: .62rem; color: rgba(255,255,255,.35); letter-spacing: .1em; margin-left: .4rem; }
+    .terminal-body { padding: 1.8rem 2rem; font-family: var(--ff-m); font-size: .78rem; line-height: 2; }
+    .t-line { display: flex; gap: .8rem; }
+    .t-prompt { color: var(--gold); flex-shrink: 0; }
+    .t-cmd { color: #e2e8f0; }
+    .t-out { color: var(--muted); padding-left: 1.5rem; }
+    .t-green { color: var(--green); }
+    .t-blue { color: #60a5fa; }
+    .t-purple { color: #c084fc; }
+    .t-gold { color: var(--gold2); }
+    .t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--gold2); animation: cursor-blink .9s step-end infinite; vertical-align: middle; }
+    @keyframes cursor-blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+    /* ════════════════════════════════════════════════
+       WHY US BAND
+    ════════════════════════════════════════════════ */
+    .why-band {
+      background: var(--gold);
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-top: 1px solid rgba(201,137,28,.3);
+    }
+    .wi {
+      text-align: center; padding: 2.8rem 1.5rem;
+      border-right: 1px solid rgba(10,8,5,.15);
+      transition: background .25s;
+    }
+    .wi:last-child { border-right: none; }
+    .wi:hover { background: var(--gold2); }
+    .wi .wi-ico { font-size: 2rem; margin-bottom: .6rem; display: block; }
+    .wi .wi-lbl { font-family: var(--ff-d); font-size: 1.05rem; letter-spacing: .07em; color: var(--bg); }
+    .wi .wi-sub { font-size: .7rem; color: rgba(10,8,5,.55); margin-top: .22rem; font-family: var(--ff-dm); }
+
+    /* ════════════════════════════════════════════════
+       PROCESS SECTION
+    ════════════════════════════════════════════════ */
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1.5px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+      margin-top: 3rem;
+    }
+    .process-step {
+      background: var(--bg2); padding: 2rem 1.6rem;
+      position: relative; transition: background .3s;
+    }
+    .process-step:hover { background: var(--gold4); }
+    .ps-num {
+      font-family: var(--ff-d); font-size: 4rem; color: rgba(201,137,28,.1);
+      line-height: 1; margin-bottom: .5rem;
+      transition: color .3s;
+    }
+    .process-step:hover .ps-num { color: rgba(201,137,28,.2); }
+    .ps-title { font-weight: 800; font-size: .9rem; color: #fff; margin-bottom: .5rem; }
+    .ps-desc { font-size: .78rem; color: var(--muted); line-height: 1.7; }
+    .ps-connector {
+      position: absolute; top: 2.5rem; right: -1px;
+      width: 20px; height: 2px; background: var(--gold);
+      display: none;
+    }
+
+    /* ════════════════════════════════════════════════
+       GALLERY
+    ════════════════════════════════════════════════ */
+    .gal-head {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.8rem;
+    }
+    .gal-grid {
+      display: grid;
+      grid-template-columns: repeat(12,1fr);
+      grid-template-rows: 270px 225px;
+      gap: 8px;
+    }
+    .g-item { overflow: hidden; border-radius: 3px; position: relative; }
+    .g-item:nth-child(1) { grid-column: 1/8; grid-row: 1; }
+    .g-item:nth-child(2) { grid-column: 8/13; grid-row: 1; }
+    .g-item:nth-child(3) { grid-column: 1/5; grid-row: 2; }
+    .g-item:nth-child(4) { grid-column: 5/13; grid-row: 2; }
+    .g-item img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .4s;
+      filter: saturate(.82) contrast(1.05);
+    }
+    .g-item:hover img { transform: scale(1.08); filter: saturate(1.08) contrast(1.04); }
+    .g-cap {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,8,5,.9), transparent);
+      padding: 2rem 1.2rem .8rem; opacity: 0; transition: opacity .35s;
+    }
+    .g-item:hover .g-cap { opacity: 1; }
+    .g-cap span { font-family: var(--ff-m); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold2); }
+
+    /* ════════════════════════════════════════════════
+       SOCIAL SECTION
+    ════════════════════════════════════════════════ */
+    .social-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+    .social-card {
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: var(--radius); padding: 1.5rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: border-color .3s, background .3s, transform .3s, box-shadow .3s;
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .social-card::before {
+      content: ''; position: absolute; inset: 0;
+      opacity: 0; transition: opacity .3s;
+    }
+    .social-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--sc-color, var(--gold));
+      box-shadow: 0 8px 30px rgba(0,0,0,.4);
+    }
+    .social-card:hover::before { opacity: .07; }
+    .sc-icon {
+      width: 42px; height: 42px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+      background: var(--sc-color, var(--gold));
+      color: #fff;
+    }
+    .sc-info { min-width: 0; }
+    .sc-platform { font-family: var(--ff-m); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+    .sc-handle { font-weight: 700; font-size: .85rem; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sc-arrow { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: .75rem; transition: color .2s, transform .2s; }
+    .social-card:hover .sc-arrow { color: var(--sc-color, var(--gold)); transform: translateY(-50%) translateX(3px); }
+
+    /* ════════════════════════════════════════════════
+       CONTACT
+    ════════════════════════════════════════════════ */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.35fr;
+      gap: 5rem; margin-top: 3rem; align-items: start;
+    }
+    .c-tagline { font-size: .9rem; color: rgba(245,237,224,.65); line-height: 1.82; margin-bottom: 2.5rem; }
+    .c-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--border2);
+      transition: padding-left .2s;
+    }
+    .c-row:first-of-type { border-top: 1px solid var(--border2); }
+    .c-row:hover { padding-left: .3rem; }
+    .c-ico {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; flex-shrink: 0; color: var(--gold);
+      transition: background .2s, border-color .2s;
+    }
+    .c-row:hover .c-ico { background: var(--gold3); border-color: var(--gold); }
+    .c-lbl { font-family: var(--ff-m); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .12rem; }
+    .c-val { font-weight: 700; font-size: .92rem; color: #fff; }
+    .c-val a { color: inherit; transition: color .2s; }
+    .c-val a:hover { color: var(--gold2); }
+    .wa-btn {
+      display: inline-flex; align-items: center; gap: .75rem;
+      background: #25D366; color: #fff;
+      font-weight: 700; font-size: .78rem; letter-spacing: .06em;
+      padding: .9rem 1.6rem; border-radius: 2px; margin-top: 2.2rem;
+      transition: filter .25s, transform .2s, box-shadow .25s; width: fit-content;
+    }
+    .wa-btn:hover { filter: brightness(1.12); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,211,102,.35); }
+    .form-box {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius2); padding: 2.8rem;
+      position: relative; overflow: hidden;
+    }
+    .form-box::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--gold2), transparent);
+    }
+    .form-box h3 { font-family: var(--ff-d); font-size: 1.6rem; letter-spacing: .05em; color: #fff; margin-bottom: 2rem; }
+    .f-row { margin-bottom: 1.1rem; }
+    .f-row label { display: block; font-family: var(--ff-m); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .45rem; }
+    .f-row input, .f-row textarea, .f-row select {
+      width: 100%; background: var(--bg);
+      border: 1px solid var(--border2); color: var(--cream);
+      font-family: var(--ff-b); font-size: .88rem;
+      padding: .85rem 1rem; border-radius: 3px; outline: none;
+      transition: border-color .25s, box-shadow .25s; resize: vertical; appearance: none;
+    }
+    .f-row input::placeholder, .f-row textarea::placeholder { color: var(--muted2); }
+    .f-row input:focus, .f-row textarea:focus, .f-row select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,137,28,.12);
+    }
+    .f-row textarea { min-height: 120px; }
+    .f-row select option { background: var(--bg2); }
+    .f-2col { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+    .f-submit {
+      width: 100%; padding: 1rem; border: none; cursor: pointer;
+      background: var(--gold); color: var(--bg);
+      font-family: var(--ff-b); font-weight: 800;
+      font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 2px; margin-top: .5rem;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .f-submit:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: var(--glow); }
+    .f-ok {
+      display: none; margin-top: 1rem;
+      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.3);
+      border-radius: 3px; padding: .9rem 1rem;
+      font-family: var(--ff-m); font-size: .78rem; color: var(--green); text-align: center;
+    }
+    .f-ok.show { display: block; animation: fadeUp .4s forwards; }
+
+    /* ════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════ */
+    footer { background: var(--bg2); border-top: 1px solid var(--border); }
+    .ft-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem; padding: 4rem 6% 3rem;
+    }
+    .ft-brand-logo {
+      font-family: var(--ff-d); font-size: 1.8rem; letter-spacing: .06em;
+      color: var(--gold2); margin-bottom: .6rem;
+      text-shadow: 0 0 20px rgba(201,137,28,.3);
+    }
+    .ft-brand p { font-size: .78rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.4rem; }
+    .ft-social { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .ft-soc-link {
+      width: 34px; height: 34px; border-radius: 4px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; color: var(--muted);
+      transition: border-color .2s, color .2s, background .2s, transform .2s;
+    }
+    .ft-soc-link:hover {
+      border-color: var(--gold); color: var(--gold);
+      background: var(--gold3); transform: translateY(-2px);
+    }
+    .ft-col h4 { font-family: var(--ff-m); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem; }
+    .ft-col ul { display: flex; flex-direction: column; gap: .6rem; }
+    .ft-col ul a { font-size: .78rem; color: var(--muted); transition: color .2s, padding-left .2s; display: block; }
+    .ft-col ul a:hover { color: var(--gold2); padding-left: .2rem; }
+    .ft-bottom {
+      border-top: 1px solid var(--border2); padding: 1.3rem 6%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: .75rem;
+    }
+    .ft-bottom p { font-family: var(--ff-m); font-size: .6rem; color: var(--muted); letter-spacing: .06em; }
+    .ft-bottom a { color: var(--gold); }
+
+    /* ════════════════════════════════════════════════
+       BACK TO TOP
+    ════════════════════════════════════════════════ */
+    #btt {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 400;
+      width: 40px; height: 40px; border-radius: 4px;
+      background: var(--gold); color: var(--bg);
+      border: none; cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateY(12px) scale(.9);
+      transition: opacity .3s, transform .3s, background .2s, box-shadow .2s;
+      pointer-events: none;
+    }
+    #btt.show { opacity: 1; transform: none; pointer-events: auto; }
+    #btt:hover { background: var(--gold2); box-shadow: var(--glow); }
+
+    /* ════════════════════════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════════════════════════ */
+    .reveal        { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-l      { opacity: 0; transform: translateX(-28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-r      { opacity: 0; transform: translateX(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-s      { opacity: 0; transform: scale(.96); transition: opacity .7s ease, transform .7s ease; }
+    .visible       { opacity: 1 !important; transform: none !important; }
+
+    /* ════════════════════════════════════════════════
+       KEYFRAMES
+    ════════════════════════════════════════════════ */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeLeft { from { opacity:0; transform:translateX(22px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes ticker   { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+    /* ════════════════════════════════════════════════
+       RESPONSIVE — TABLET ≤ 960px
+    ════════════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .mosaic { grid-template-rows: 195px 195px; }
+      .exp-badge { width: 80px; height: 80px; bottom: -14px; right: -10px; }
+      .svc-grid { grid-template-columns: 1fr 1fr; }
+      .why-band { grid-template-columns: 1fr 1fr; }
+      .wi { border-right: none; border-bottom: 1px solid rgba(10,8,5,.15); }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .gal-grid { grid-template-rows: 215px 180px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .ft-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .ft-top .ft-brand { grid-column: span 2; }
+      .hero-tech-stack { display: none; }
+    }
+
+    /* ════════════════════════════════════════════════
+       RESPONSIVE — MOBILE ≤ 640px
+    ════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .section { padding: 4.5rem 5%; }
+      #hero { padding: 0 5% 6rem; }
+      .hero-name { font-size: clamp(3.4rem,16vw,5.5rem); }
+      .mosaic {
+        grid-template-columns: 1fr;
+        grid-template-rows: 250px 185px 185px;
+      }
+      .m-photo:first-child { grid-row: span 1; }
+      .exp-badge { right: 0; bottom: -10px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stats-row .stat-box:last-child { grid-column: span 2; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .why-band { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .gal-grid { display: flex; flex-direction: column; gap: 8px; }
+      .g-item { height: 240px; grid-column: unset !important; grid-row: unset !important; }
+      .f-2col { grid-template-columns: 1fr; }
+      .form-box { padding: 2rem 1.4rem; }
+      .ft-top { grid-template-columns: 1fr; }
+      .ft-top .ft-brand { grid-column: span 1; }
+      .ft-bottom { flex-direction: column; text-align: center; }
+      .skill-tabs { width: 100%; }
+      .skill-tab { flex: 1; text-align: center; padding: .6rem .5rem; }
+      .terminal-body { padding: 1.2rem 1rem; font-size: .68rem; }
+      .social-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ════════════════════════════════════════════════
+       MOBILE ≤ 420px
+    ════════════════════════════════════════════════ */
+    @media (max-width: 420px) {
+      .section { padding: 4rem 4.5%; }
+      .hero-btns { flex-direction: column; }
+      .btn-gold, .btn-ghost { width: 100%; justify-content: center; }
+      .why-band { grid-template-columns: 1fr; }
+      .wi { border-bottom: 1px solid rgba(10,8,5,.15); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">SOMI-TECH</div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button id="btt" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- ══════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════ -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      SOMI-TECH
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li><a href="#contact" class="nav-cta">Hire Us</a></li>
+    </ul>
+    <button class="hamburger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mob-overlay" id="overlay"></div>
+  <div class="mob-drawer" id="drawer">
+    <a href="#about"    class="dlink">About</a>
+    <a href="#skills"   class="dlink">Skills</a>
+    <a href="#services" class="dlink">Services</a>
+    <a href="#process"  class="dlink">Process</a>
+    <a href="#gallery"  class="dlink">Gallery</a>
+    <a href="#connect"  class="dlink">Connect</a>
+    <a href="#contact"  class="dlink">Contact</a>
+    <div class="mob-social">
+      <a href="#" target="_blank" rel="noopener">Twitter</a>
+      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img src="assets/images/pics1.JPEG" alt="Somina Oje" id="heroBg"/>
+    </div>
+    <div class="hero-scanlines"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-bg-word" aria-hidden="true">SOMI</div>
+
+    <div class="hero-content">
+      <div class="hero-status">
+        <div class="hero-status-dot"></div>
+        Available for projects — Port Harcourt, NG
+      </div>
+      <div class="hero-chip">IT Executive &amp; Tech Founder</div>
+      <h1 class="hero-name">SOMINA<em>OJE</em></h1>
+      <p class="hero-role"><strong>CEO / Executive Director</strong> — SOMI-TECH &nbsp;·&nbsp; Est. 2018</p>
+      <blockquote class="hero-motto">
+        "The thin line between<br>YOU &amp; TECH"
+      </blockquote>
+      <div class="hero-btns">
+        <a href="#services" class="btn-gold">Explore Services →</a>
+        <a href="#contact"  class="btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-tech-stack">
+      <div class="ts-label">Tech Stack</div>
+      <div class="ts-pills">
+        <span class="ts-pill">React</span>
+        <span class="ts-pill">Node.js</span>
+        <span class="ts-pill">Python</span>
+        <span class="ts-pill">Flutter</span>
+        <span class="ts-pill">MySQL</span>
+        <span class="ts-pill">AWS</span>
+        <span class="ts-pill">Figma</span>
+        <span class="ts-pill">AI/ML</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hs-line"></div>
+      <span class="hs-txt">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       MARQUEE
+  ══════════════════════════════════════ -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="m-item">Web Development</span>
+      <span class="m-item">Mobile Apps</span>
+      <span class="m-item">Data Analytics</span>
+      <span class="m-item">Graphics Design</span>
+      <span class="m-item">AI Prompting</span>
+      <span class="m-item">Laptop Sales &amp; Repairs</span>
+      <span class="m-item">IT Support</span>
+      <span class="m-item">Networking</span>
+      <span class="m-item">UI/UX Design</span>
+      <span class="m-item">Cloud Solutions</span>
+      <span class="m-item">Cybersecurity</span>
+      <span class="m-item">Database Admin</span>
+      <span class="m-item">Web Development</span>
+      <span class="m-item">Mobile Apps</span>
+      <span class="m-item">Data Analytics</span>
+      <span class="m-item">Graphics Design</span>
+      <span class="m-item">AI Prompting</span>
+      <span class="m-item">Laptop Sales &amp; Repairs</span>
+      <span class="m-item">IT Support</span>
+      <span class="m-item">Networking</span>
+      <span class="m-item">UI/UX Design</span>
+      <span class="m-item">Cloud Solutions</span>
+      <span class="m-item">Cybersecurity</span>
+      <span class="m-item">Database Admin</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════ -->
+  <section id="about" class="section bg2">
+    <div class="chip reveal">Who I Am</div>
+    <h2 class="sec-title reveal">IT Expert.<br><span>Entrepreneur.</span><br>Innovator.</h2>
+
+    <div class="about-grid">
+      <!-- Photo mosaic -->
+      <div class="mosaic reveal-l">
+        <div class="m-photo">
+          <img src="assets/images/pics1.JPEG" alt="Somina Oje" loading="lazy"/>
+        </div>
+        <div class="m-photo">
+          <img src="assets/images/pics2.JPEG" alt="Somina Oje" loading="lazy"/>
+        </div>
+        <div class="m-photo">
+          <img src="assets/images/pics4.JPEG" alt="At work" loading="lazy"/>
+        </div>
+        <div class="exp-badge">
+          <div class="eb-n">6+</div>
+          <div class="eb-l">Yrs in<br>IT</div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div>
+        <p class="about-bio reveal">
+          I'm <strong>Somina Oje</strong> — an IT Support &amp; Operations Executive hailing from
+          <strong>Bille Kingdom / Okirika, Rivers State, Nigeria</strong>. A graduate of
+          <strong>Geography &amp; Environmental Science</strong> from Ignatius Ajuru University
+          of Education, Port Harcourt — I bridged earth sciences and technology to become a
+          full-spectrum digital professional.<br><br>
+          At <strong>SOMI-TECH</strong>, we deliver end-to-end tech solutions with a team that is
+          <strong>professional, reliable, and prompt</strong>. From networking infrastructure to
+          AI-powered creative work — we bridge the gap between <em>you</em> and technology.
+          We operate <strong>remotely</strong>, serving clients across Nigeria and beyond.
+          Every project gets our full attention, zero compromise.
+        </p>
+
+        <div class="stats-row reveal">
+          <div class="stat-box">
+            <div class="sn" data-target="50" data-sfx="+">0+</div>
+            <div class="sl">Projects</div>
+          </div>
+          <div class="stat-box">
+            <div class="sn" data-target="100" data-sfx="%">0%</div>
+            <div class="sl">Reliable</div>
+          </div>
+          <div class="stat-box">
+            <div class="sn" data-target="8" data-sfx="+">0+</div>
+            <div class="sl">Services</div>
+          </div>
+        </div>
+
+        <div class="tags reveal">
+          <span class="tag">Networking</span>
+          <span class="tag">IT Support</span>
+          <span class="tag">Web Dev</span>
+          <span class="tag">Mobile Apps</span>
+          <span class="tag">Data Analytics</span>
+          <span class="tag">AI Prompting</span>
+          <span class="tag">Graphics Design</span>
+          <span class="tag">Laptop Repairs</span>
+          <span class="tag">UI/UX</span>
+          <span class="tag">Cloud</span>
+          <span class="tag">Cybersecurity</span>
+          <span class="tag">Database</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════ -->
+  <section id="skills" class="section">
+    <div class="chip reveal">Expertise</div>
+    <h2 class="sec-title reveal">Technical <span>Skills</span></h2>
+    <div class="skills-intro reveal">
+      <p class="sec-sub">A full-stack, full-spectrum operator — from low-level hardware to cloud deployments, from pixel-perfect design to AI-powered automation.</p>
+    </div>
+
+    <div class="skill-tabs reveal" id="skillTabs">
+      <button class="skill-tab active" data-panel="frontend">Frontend</button>
+      <button class="skill-tab" data-panel="backend">Backend</button>
+      <button class="skill-tab" data-panel="mobile">Mobile</button>
+      <button class="skill-tab" data-panel="design">Design</button>
+      <button class="skill-tab" data-panel="it">IT &amp; Infra</button>
+      <button class="skill-tab" data-panel="ai">AI &amp; Data</button>
+    </div>
+
+    <!-- FRONTEND PANEL -->
+    <div class="skills-panel active" id="panel-frontend">
+      <div class="skill-category-title reveal">Languages &amp; Markup</div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">HTML5</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="95"></div></div>
+          <div class="skill-bar-pct">95%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">CSS3 / SCSS</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div>
+          <div class="skill-bar-pct">90%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">JavaScript (ES6+)</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+          <div class="skill-bar-pct">88%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">TypeScript</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
+          <div class="skill-bar-pct">72%</div>
+        </div>
+      </div>
+
+      <div class="skill-category-title reveal">Frameworks &amp; Libraries</div>
+      <div class="skill-icons-grid reveal">
+        <div class="skill-icon-card"><div class="sic-ico">⚛️</div><div class="sic-name">React.js</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🟩</div><div class="sic-name">Vue.js</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">▲</div><div class="sic-name">Next.js</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔷</div><div class="sic-name">Tailwind CSS</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🟣</div><div class="sic-name">Bootstrap</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🌀</div><div class="sic-name">jQuery</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📦</div><div class="sic-name">Webpack</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">⚡</div><div class="sic-name">Vite</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🎭</div><div class="sic-name">GSAP</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🏪</div><div class="sic-name">Redux</div></div>
+      </div>
+    </div>
+
+    <!-- BACKEND PANEL -->
+    <div class="skills-panel" id="panel-backend">
+      <div class="skill-category-title reveal">Languages</div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Node.js</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+          <div class="skill-bar-pct">85%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Python</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+          <div class="skill-bar-pct">80%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">PHP</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="75"></div></div>
+          <div class="skill-bar-pct">75%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Java (Basics)</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="55"></div></div>
+          <div class="skill-bar-pct">55%</div>
+        </div>
+      </div>
+
+      <div class="skill-category-title reveal">Frameworks, Databases &amp; Cloud</div>
+      <div class="skill-icons-grid reveal">
+        <div class="skill-icon-card"><div class="sic-ico">🚂</div><div class="sic-name">Express.js</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🌶️</div><div class="sic-name">Django</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🍃</div><div class="sic-name">MongoDB</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🐬</div><div class="sic-name">MySQL</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🐘</div><div class="sic-name">PostgreSQL</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔴</div><div class="sic-name">Redis</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔥</div><div class="sic-name">Firebase</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">☁️</div><div class="sic-name">AWS (EC2/S3)</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🐳</div><div class="sic-name">Docker</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔧</div><div class="sic-name">REST APIs</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📡</div><div class="sic-name">GraphQL</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔀</div><div class="sic-name">Git / GitHub</div></div>
+      </div>
+    </div>
+
+    <!-- MOBILE PANEL -->
+    <div class="skills-panel" id="panel-mobile">
+      <div class="skill-category-title reveal">Mobile Development</div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Flutter</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+          <div class="skill-bar-pct">82%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">React Native</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+          <div class="skill-bar-pct">78%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Dart</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="76"></div></div>
+          <div class="skill-bar-pct">76%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Android (Kotlin)</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="58"></div></div>
+          <div class="skill-bar-pct">58%</div>
+        </div>
+      </div>
+
+      <div class="skill-category-title reveal">Tools &amp; Platforms</div>
+      <div class="skill-icons-grid reveal">
+        <div class="skill-icon-card"><div class="sic-ico">📱</div><div class="sic-name">Flutter / Dart</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">⚛️</div><div class="sic-name">React Native</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🤖</div><div class="sic-name">Android Studio</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📦</div><div class="sic-name">Expo</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔥</div><div class="sic-name">Firebase Auth</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">💳</div><div class="sic-name">Stripe SDK</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🗺️</div><div class="sic-name">Google Maps API</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📊</div><div class="sic-name">App Analytics</div></div>
+      </div>
+    </div>
+
+    <!-- DESIGN PANEL -->
+    <div class="skills-panel" id="panel-design">
+      <div class="skill-category-title reveal">Design Proficiency</div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Figma</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+          <div class="skill-bar-pct">88%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Adobe Photoshop</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+          <div class="skill-bar-pct">85%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Adobe Illustrator</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+          <div class="skill-bar-pct">78%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Canva Pro</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="93"></div></div>
+          <div class="skill-bar-pct">93%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">UI/UX Design</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+          <div class="skill-bar-pct">82%</div>
+        </div>
+      </div>
+
+      <div class="skill-category-title reveal">Design Tools</div>
+      <div class="skill-icons-grid reveal">
+        <div class="skill-icon-card"><div class="sic-ico">🖼️</div><div class="sic-name">Figma</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🎨</div><div class="sic-name">Photoshop</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">✏️</div><div class="sic-name">Illustrator</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🎬</div><div class="sic-name">Premiere Pro</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">⭐</div><div class="sic-name">Canva Pro</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🎭</div><div class="sic-name">After Effects</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📐</div><div class="sic-name">Wireframing</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔬</div><div class="sic-name">Prototyping</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🧠</div><div class="sic-name">UX Research</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🌈</div><div class="sic-name">Brand Identity</div></div>
+      </div>
+    </div>
+
+    <!-- IT & INFRA PANEL -->
+    <div class="skills-panel" id="panel-it">
+      <div class="skill-category-title reveal">IT &amp; Infrastructure</div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Network Config</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div>
+          <div class="skill-bar-pct">90%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Windows Server</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="86"></div></div>
+          <div class="skill-bar-pct">86%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Linux Admin</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+          <div class="skill-bar-pct">78%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Hardware Repair</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="92"></div></div>
+          <div class="skill-bar-pct">92%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Cybersecurity</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
+          <div class="skill-bar-pct">72%</div>
+        </div>
+      </div>
+
+      <div class="skill-category-title reveal">Tools &amp; Platforms</div>
+      <div class="skill-icons-grid reveal">
+        <div class="skill-icon-card"><div class="sic-ico">🌐</div><div class="sic-name">Cisco / Routers</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🖥️</div><div class="sic-name">Windows Server</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🐧</div><div class="sic-name">Ubuntu Linux</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔐</div><div class="sic-name">VPN Setup</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🛡️</div><div class="sic-name">Firewall Config</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔧</div><div class="sic-name">Hardware Repair</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">💾</div><div class="sic-name">Data Recovery</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">☁️</div><div class="sic-name">Cloud Hosting</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📡</div><div class="sic-name">LAN / WAN</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🖨️</div><div class="sic-name">Peripherals</div></div>
+      </div>
+    </div>
+
+    <!-- AI & DATA PANEL -->
+    <div class="skills-panel" id="panel-ai">
+      <div class="skill-category-title reveal">AI &amp; Data</div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">AI Prompt Eng.</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="92"></div></div>
+          <div class="skill-bar-pct">92%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Data Analytics</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+          <div class="skill-bar-pct">80%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">Python (Pandas)</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="76"></div></div>
+          <div class="skill-bar-pct">76%</div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-name">ML Basics</div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="62"></div></div>
+          <div class="skill-bar-pct">62%</div>
+        </div>
+      </div>
+
+      <div class="skill-category-title reveal">AI Tools &amp; Platforms</div>
+      <div class="skill-icons-grid reveal">
+        <div class="skill-icon-card"><div class="sic-ico">🤖</div><div class="sic-name">ChatGPT</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🧠</div><div class="sic-name">Claude AI</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🎨</div><div class="sic-name">Midjourney</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🖼️</div><div class="sic-name">DALL-E</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🎬</div><div class="sic-name">Sora / RunwayML</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📊</div><div class="sic-name">Power BI</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📈</div><div class="sic-name">Google Analytics</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">📋</div><div class="sic-name">Excel Advanced</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🐍</div><div class="sic-name">Python / Pandas</div></div>
+        <div class="skill-icon-card"><div class="sic-ico">🔗</div><div class="sic-name">LangChain</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TERMINAL / CODE AESTHETIC
+  ══════════════════════════════════════ -->
+  <div class="terminal-section bg2">
+    <div class="terminal-wrap reveal-s">
+      <div class="terminal-bar">
+        <div class="t-dot r"></div>
+        <div class="t-dot y"></div>
+        <div class="t-dot g"></div>
+        <div class="t-title">somina@somitech:~$</div>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">whoami</span></div>
+        <div class="t-out t-gold">somina_oje — CEO, SOMI-TECH | IT Executive | Full-Stack Dev</div>
+        <div class="t-line" style="margin-top:.5rem"><span class="t-prompt">$</span><span class="t-cmd">cat about.txt</span></div>
+        <div class="t-out">Location: <span class="t-blue">Port Harcourt, Rivers State, NG</span></div>
+        <div class="t-out">Education: <span class="t-blue">Geography &amp; Env. Science — IAUE, PH</span></div>
+        <div class="t-out">Experience: <span class="t-green">6+ years in IT &amp; Tech</span></div>
+        <div class="t-out">Status: <span class="t-green">● OPEN TO PROJECTS</span></div>
+        <div class="t-line" style="margin-top:.5rem"><span class="t-prompt">$</span><span class="t-cmd">ls services/</span></div>
+        <div class="t-out"><span class="t-blue">web-dev/</span> &nbsp; <span class="t-blue">mobile-apps/</span> &nbsp; <span class="t-purple">ai-prompting/</span> &nbsp; <span class="t-blue">data-analytics/</span> &nbsp; <span class="t-green">it-support/</span> &nbsp; <span class="t-gold">design/</span></div>
+        <div class="t-line" style="margin-top:.5rem"><span class="t-prompt">$</span><span class="t-cmd">ping somitech --contact</span></div>
+        <div class="t-out">Connecting to <span class="t-gold">wa.me/2347083026746</span> ... <span class="t-green">ONLINE ✓</span></div>
+        <div class="t-line" style="margin-top:.5rem"><span class="t-prompt">$</span><span class="t-cmd t-cursor">&nbsp;</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SERVICES
+  ══════════════════════════════════════ -->
+  <section id="services" class="section">
+    <div class="svc-head">
+      <div>
+        <div class="chip reveal">What We Do</div>
+        <h2 class="sec-title reveal">Our <span>Services</span></h2>
+      </div>
+      <p class="sec-sub reveal" style="text-align:right;max-width:310px;">
+        Professional, reliable &amp; prompt — every single time. No excuses.
+      </p>
+    </div>
+
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <div class="svc-n">01</div>
+        <span class="svc-ico">🌐</span>
+        <div class="svc-name">Web Development &amp; Design</div>
+        <p class="svc-desc">Full-cycle web solutions — from lightning-fast landing pages to complex e-commerce platforms. We build, you own. Tutorials included so you understand every line.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">React</span><span class="svc-tag">Next.js</span><span class="svc-tag">HTML/CSS</span><span class="svc-tag">WordPress</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">02</div>
+        <span class="svc-ico">📱</span>
+        <div class="svc-name">Mobile App Building &amp; Design</div>
+        <p class="svc-desc">Cross-platform mobile apps for Android &amp; iOS. From idea to Play Store. Beautiful interfaces, real-world performance, zero compromise.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Flutter</span><span class="svc-tag">React Native</span><span class="svc-tag">Firebase</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">03</div>
+        <span class="svc-ico">📊</span>
+        <div class="svc-name">Data Analytics &amp; Visualization</div>
+        <p class="svc-desc">Turn raw data into actionable insights. Custom dashboards, reports, and business intelligence that help you make smarter decisions faster.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Python</span><span class="svc-tag">Power BI</span><span class="svc-tag">Excel</span><span class="svc-tag">SQL</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">04</div>
+        <span class="svc-ico">🎨</span>
+        <div class="svc-name">Graphics Design &amp; Branding</div>
+        <p class="svc-desc">Creative brand identity, social media content, flyers, logos, and marketing materials. Eye-catching, purpose-driven design. Tutorials available on request.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Figma</span><span class="svc-tag">Photoshop</span><span class="svc-tag">Illustrator</span><span class="svc-tag">Canva</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">05</div>
+        <span class="svc-ico">🤖</span>
+        <div class="svc-name">AI Prompt Engineering</div>
+        <p class="svc-desc">Cutting-edge AI-generated images, videos, and content. We craft precise prompts using Midjourney, DALL-E, Sora, and more — results that look genuinely professional.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Midjourney</span><span class="svc-tag">ChatGPT</span><span class="svc-tag">Claude</span><span class="svc-tag">Sora</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">06</div>
+        <span class="svc-ico">💻</span>
+        <div class="svc-name">Laptop Sales &amp; Repairs</div>
+        <p class="svc-desc">Trusted quality laptop sales (new &amp; fairly-used), expert hardware repairs, OS installations, data recovery, and upgrades. Fast turnaround, transparent pricing.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Repairs</span><span class="svc-tag">Sales</span><span class="svc-tag">OS Install</span><span class="svc-tag">Recovery</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">07</div>
+        <span class="svc-ico">🔌</span>
+        <div class="svc-name">IT Support &amp; Networking</div>
+        <p class="svc-desc">Full IT support for individuals and organizations — network setup, troubleshooting, server configurations, VPN deployment, and ongoing maintenance.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">LAN/WAN</span><span class="svc-tag">VPN</span><span class="svc-tag">Server</span><span class="svc-tag">Support</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">08</div>
+        <span class="svc-ico">🛡️</span>
+        <div class="svc-name">Cybersecurity Consulting</div>
+        <p class="svc-desc">Protect your digital assets. Security audits, firewall setup, vulnerability assessments, and staff training. Stay one step ahead of threats.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Firewall</span><span class="svc-tag">Audit</span><span class="svc-tag">VPN</span><span class="svc-tag">Training</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">09</div>
+        <span class="svc-ico">☁️</span>
+        <div class="svc-name">Cloud &amp; Hosting Solutions</div>
+        <p class="svc-desc">Deploy, manage, and scale your business on the cloud. AWS, Firebase, and cPanel hosting setups. Reliable uptime, professional configuration.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">AWS</span><span class="svc-tag">Firebase</span><span class="svc-tag">cPanel</span><span class="svc-tag">Docker</span>
+        </div>
+        <div class="svc-arr">→</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       WHY US
+  ══════════════════════════════════════ -->
+  <div class="why-band reveal">
+    <div class="wi"><span class="wi-ico">⚡</span><div class="wi-lbl">Fast Delivery</div><div class="wi-sub">Quick turnaround, always</div></div>
+    <div class="wi"><span class="wi-ico">🔒</span><div class="wi-lbl">Reliable Team</div><div class="wi-sub">You can count on us</div></div>
+    <div class="wi"><span class="wi-ico">💡</span><div class="wi-lbl">Professional</div><div class="wi-sub">Top quality every time</div></div>
+    <div class="wi"><span class="wi-ico">🌍</span><div class="wi-lbl">Remote Ready</div><div class="wi-sub">Serving all of Nigeria</div></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PROCESS
+  ══════════════════════════════════════ -->
+  <section id="process" class="section bg2">
+    <div class="chip reveal">How We Work</div>
+    <h2 class="sec-title reveal">Our <span>Process</span></h2>
+    <p class="sec-sub reveal">Simple, structured, and stress-free — every time you work with us.</p>
+
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <div class="ps-num">01</div>
+        <div class="ps-title">Discovery Call</div>
+        <p class="ps-desc">We start with a WhatsApp or call session to understand your goals, timeline, and budget. No fluff, just clarity.</p>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">02</div>
+        <div class="ps-title">Proposal &amp; Plan</div>
+        <p class="ps-desc">We send a clear proposal with scope, pricing, and timeline. No surprises. You approve before we start.</p>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">03</div>
+        <div class="ps-title">Build &amp; Review</div>
+        <p class="ps-desc">We build fast, share progress updates, and take feedback seriously. You're involved at every milestone.</p>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">04</div>
+        <div class="ps-title">Deliver &amp; Support</div>
+        <p class="ps-desc">We deliver your project, provide tutorials if needed, and offer post-launch support. Done right, done properly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       GALLERY
+  ══════════════════════════════════════ -->
+  <section id="gallery" class="section bg3">
+    <div class="gal-head">
+      <div>
+        <div class="chip reveal">The Brand</div>
+        <h2 class="sec-title reveal">Gallery</h2>
+      </div>
+      <p class="sec-sub reveal" style="text-align:right;max-width:280px;">
+        The face and force behind SOMI-TECH.
+      </p>
+    </div>
+    <div class="gal-grid reveal">
+      <div class="g-item">
+        <img src="assets/images/pics1.JPEG" alt="Somina Oje" loading="lazy"/>
+        <div class="g-cap"><span>Somina Oje — CEO</span></div>
+      </div>
+      <div class="g-item">
+        <img src="assets/images/pics2.JPEG" alt="Somina Oje" loading="lazy"/>
+        <div class="g-cap"><span>SOMI-TECH</span></div>
+      </div>
+      <div class="g-item">
+        <img src="assets/images/pics4.JPEG" alt="Somina Oje at work" loading="lazy"/>
+        <div class="g-cap"><span>At Work</span></div>
+      </div>
+      <div class="g-item">
+        <img src="assets/images/logo.JPEG" alt="SOMI-TECH Brand" loading="lazy"/>
+        <div class="g-cap"><span>Brand Identity</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONNECT / SOCIAL MEDIA
+  ══════════════════════════════════════ -->
+  <section id="connect" class="section bg2">
+    <div class="chip reveal">Socials</div>
+    <h2 class="sec-title reveal">Find Us <span>Online</span></h2>
+    <p class="sec-sub reveal">Connect on any platform — we're active and we respond. Add your handles below and update the links.</p>
+
+    <div class="social-grid reveal">
+
+      <!-- WhatsApp -->
+      <a class="social-card" href="https://wa.me/2347083026746" target="_blank" rel="noopener"
+         style="--sc-color:#25D366;">
+        <div class="sc-icon" style="background:#25D366;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </div>
+        <div class="sc-info">
+          <div class="sc-platform">WhatsApp</div>
+          <div class="sc-handle">07083026746</div>
+        </div>
+        <span class="sc-arrow">→</span>
+      </a>
+
+      <!-- Instagram -->
+      <a class="social-card" href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener"
+         style="--sc-color:#E1306C;">
+        <div class="sc-icon" style="background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        <div class="sc-info">
+          <div class="sc-platform">Instagram</div>
+          <div class="sc-handle">@YOUR_HANDLE</div>
+        </div>
+        <span class="sc-arrow">→</span>
+      </a>
+
+      <!-- LinkedIn -->
+      <a class="social-card" href="https://linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noopener"
+         style="--sc-color:#0A66C2;">
+        <div class="sc-icon" style="background:#0A66C2;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div class="sc-info">
+          <div class="sc-platform">LinkedIn</div>
+          <div class="sc-handle">Somina Oje</div>
+        </div>
+        <span class="sc-arrow">→</span>
+      </a>
+
+    
+
+      
+
+      <!-- Facebook -->
+      <a class="social-card" href="https://facebook.com/YOUR_HANDLE" target="_blank" rel="noopener"
+         style="--sc-color:#1877F2;">
+        <div class="sc-icon" style="background:#1877F2;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <div class="sc-info">
+          <div class="sc-platform">Facebook</div>
+          <div class="sc-handle">SOMI-TECH</div>
+        </div>
+        <span class="sc-arrow">→</span>
+      </a>
+
+     
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════ -->
+  <section id="contact" class="section">
+    <div class="chip reveal">Let's Work</div>
+    <h2 class="sec-title reveal">Get In <span>Touch</span></h2>
+    <p class="sec-sub reveal">Ready to bridge the gap between you and tech? Reach out — we move fast.</p>
+
+    <div class="contact-grid">
+      <!-- Left info -->
+      <div>
+        <p class="c-tagline reveal">
+          Whether you need a website, mobile app, data insights, or IT support —
+          we're here and we're ready. Reach out via the form or contact us directly on WhatsApp.
+          We typically respond within the hour.
+        </p>
+        <div class="c-row reveal">
+          <div class="c-ico">📍</div>
+          <div>
+            <div class="c-lbl">Location</div>
+            <div class="c-val">Remote — Port Harcourt, Nigeria</div>
+          </div>
+        </div>
+        <div class="c-row reveal">
+          <div class="c-ico">💬</div>
+          <div>
+            <div class="c-lbl">WhatsApp (Primary)</div>
+            <div class="c-val"><a href="https://wa.me/2347083026746" target="_blank">07083026746</a></div>
+          </div>
+        </div>
+        <div class="c-row reveal">
+          <div class="c-ico">📞</div>
+          <div>
+            <div class="c-lbl">Phone</div>
+            <div class="c-val"><a href="tel:+2348136938368">08136938368</a></div>
+          </div>
+        </div>
+        <div class="c-row reveal">
+          <div class="c-ico">📧</div>
+          <div>
+            <div class="c-lbl">Email</div>
+            <div class="c-val"><a href="mailto:hello@somitech.ng">hello@somitech.ng</a></div>
+          </div>
+        </div>
+        <a href="https://wa.me/2347083026746" class="wa-btn reveal" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+
+      <!-- Right form -->
+      <div class="form-box reveal-r">
+        <h3>Send a Message</h3>
+        <div class="f-2col">
+          <div class="f-row">
+            <label>Your Name</label>
+            <input type="text" id="fname" placeholder="e.g. John Doe" autocomplete="name"/>
+          </div>
+          <div class="f-row">
+            <label>Phone / Email</label>
+            <input type="text" id="femail" placeholder="08XXXXXXXXX or you@email.com" autocomplete="tel"/>
+          </div>
+        </div>
+        <div class="f-row">
+          <label>Service Needed</label>
+          <select id="fservice">
+            <option value="" disabled selected>Select a service…</option>
+            <option>Web Development &amp; Design</option>
+            <option>Mobile App Building</option>
+            <option>Data Analytics &amp; Visualization</option>
+            <option>Graphics Design &amp; Branding</option>
+            <option>AI Prompt Engineering</option>
+            <option>Laptop Sales / Repairs</option>
+            <option>IT Support / Networking</option>
+            <option>Cybersecurity Consulting</option>
+            <option>Cloud &amp; Hosting Solutions</option>
+            <option>Other / Multiple Services</option>
+          </select>
+        </div>
+        <div class="f-row">
+          <label>Budget Range (optional)</label>
+          <select id="fbudget">
+            <option value="" disabled selected>Select budget range…</option>
+            <option>Under ₦50,000</option>
+            <option>₦50,000 – ₦150,000</option>
+            <option>₦150,000 – ₦500,000</option>
+            <option>₦500,000+</option>
+            <option>Let's discuss</option>
+          </select>
+        </div>
+        <div class="f-row">
+          <label>Your Message</label>
+          <textarea id="fmsg" placeholder="Tell us about your project — what do you need, when do you need it, and any other details…"></textarea>
+        </div>
+        <button class="f-submit" id="sendBtn">Send via WhatsApp →</button>
+        <div class="f-ok" id="fOk">✅ Opening WhatsApp… We'll respond as soon as possible!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="ft-brand-logo">SOMI-TECH</div>
+        <p>The thin line between YOU &amp; TECH.<br>
+        Professional IT solutions — remote, reliable, and results-driven.<br>
+        Port Harcourt, Rivers State, Nigeria.</p>
+        <div class="ft-social" style="margin-top:1.2rem;">
+          <a class="ft-soc-link" href="https://wa.me/2347083026746" target="_blank" rel="noopener" title="WhatsApp">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener" title="Instagram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noopener" title="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://twitter.com/YOUR_HANDLE" target="_blank" rel="noopener" title="X / Twitter">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://github.com/YOUR_HANDLE" target="_blank" rel="noopener" title="GitHub">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://facebook.com/YOUR_HANDLE" target="_blank" rel="noopener" title="Facebook">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://tiktok.com/@YOUR_HANDLE" target="_blank" rel="noopener" title="TikTok">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://youtube.com/@YOUR_CHANNEL" target="_blank" rel="noopener" title="YouTube">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a class="ft-soc-link" href="https://t.me/YOUR_HANDLE" target="_blank" rel="noopener" title="Telegram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Somina</a></li>
+          <li><a href="#skills">Skills &amp; Expertise</a></li>
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#connect">Social Media</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="ft-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Web Development</a></li>
+          <li><a href="#services">Mobile Apps</a></li>
+          <li><a href="#services">AI Prompting</a></li>
+          <li><a href="#services">Data Analytics</a></li>
+          <li><a href="#services">Graphics Design</a></li>
+          <li><a href="#services">Laptop Repairs</a></li>
+          <li><a href="#services">Cybersecurity</a></li>
+          <li><a href="#services">Cloud Solutions</a></li>
+        </ul>
+      </div>
+
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://wa.me/2347083026746">WhatsApp</a></li>
+          <li><a href="tel:+2348136938368">08136938368</a></li>
+          <li><a href="mailto:hello@somitech.ng">hello@somitech.ng</a></li>
+          <li><a href="#" style="pointer-events:none;color:var(--muted2);">Port Harcourt, NG</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <p>© 2025 SOMI-TECH. All rights reserved. Built in Port Harcourt 🇳🇬</p>
+      <p>Made with ❤️ by <a href="#hero">Somina Oje</a></p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       JAVASCRIPT (inline — no external file needed)
+  ══════════════════════════════════════ -->
+  <script>
+  (function () {
+    "use strict";
+
+    /* ─────────────────────────────────────
+       LOADER
+    ───────────────────────────────────── */
+    var loader    = document.getElementById("loader");
+    var loaderBar = document.getElementById("loaderBar");
+    var loaderPct = document.getElementById("loaderPct");
+    var loaderVal = 0;
+
+    var loaderInt = setInterval(function () {
+      loaderVal += Math.random() * 18 + 6;
+      if (loaderVal >= 100) {
+        loaderVal = 100;
+        clearInterval(loaderInt);
+        loaderBar.style.width = "100%";
+        loaderPct.textContent = "100%";
+        setTimeout(function () {
+          loader.classList.add("done");
+          setTimeout(function () {
+            loader.style.display = "none";
+          }, 750);
+        }, 280);
+      } else {
+        loaderBar.style.width = loaderVal.toFixed(0) + "%";
+        loaderPct.textContent = loaderVal.toFixed(0) + "%";
+      }
+    }, 80);
+
+    /* ─────────────────────────────────────
+       CUSTOM CURSOR
+    ───────────────────────────────────── */
+    var cur  = document.getElementById("cur");
+    var ring = document.getElementById("cur-ring");
+
+    if (window.matchMedia("(pointer: fine)").matches && cur && ring) {
+      var mx = 0, my = 0, rx = 0, ry = 0;
+
+      document.addEventListener("mousemove", function (e) {
+        mx = e.clientX;
+        my = e.clientY;
+        cur.style.left = mx + "px";
+        cur.style.top  = my + "px";
+      });
+
+      (function tick() {
+        rx += (mx - rx) * 0.11;
+        ry += (my - ry) * 0.11;
+        ring.style.left = rx + "px";
+        ring.style.top  = ry + "px";
+        requestAnimationFrame(tick);
+      })();
+
+      var hoverEls = document.querySelectorAll(
+        "a, button, .svc-card, .g-item, .tag, .m-photo, .skill-icon-card, .social-card, .ts-pill"
+      );
+      hoverEls.forEach(function (el) {
+        el.addEventListener("mouseenter", function () {
+          document.body.classList.add("cur-hover");
+        });
+        el.addEventListener("mouseleave", function () {
+          document.body.classList.remove("cur-hover");
+        });
+      });
+    }
+
+    /* ─────────────────────────────────────
+       NAVBAR SCROLL
+    ───────────────────────────────────── */
+    var nav = document.getElementById("nav");
+
+    window.addEventListener("scroll", function () {
+      nav.classList.toggle("scrolled", window.scrollY > 60);
+      updateActiveLink();
+      toggleBtt();
+    }, { passive: true });
+
+    /* ─────────────────────────────────────
+       ACTIVE NAV LINK
+    ───────────────────────────────────── */
+    var sections   = document.querySelectorAll("section[id]");
+    var navAnchors = document.querySelectorAll(".nav-links a");
+
+    function updateActiveLink() {
+      var current = "";
+      sections.forEach(function (s) {
+        if (window.scrollY >= s.offsetTop - 160) current = s.id;
+      });
+      navAnchors.forEach(function (a) {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+      });
+    }
+
+    /* ─────────────────────────────────────
+       MOBILE DRAWER
+    ───────────────────────────────────── */
+    var burger  = document.getElementById("burger");
+    var drawer  = document.getElementById("drawer");
+    var overlay = document.getElementById("overlay");
+
+    function openDrawer() {
+      drawer.classList.add("open");
+      overlay.classList.add("open");
+      burger.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeDrawer() {
+      drawer.classList.remove("open");
+      overlay.classList.remove("open");
+      burger.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    if (burger)  burger.addEventListener("click", function () {
+      drawer.classList.contains("open") ? closeDrawer() : openDrawer();
+    });
+    if (overlay) overlay.addEventListener("click", closeDrawer);
+
+    document.querySelectorAll(".dlink").forEach(function (l) {
+      l.addEventListener("click", closeDrawer);
+    });
+
+    /* ─────────────────────────────────────
+       SMOOTH SCROLL
+    ───────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    /* ─────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────── */
+    var revEls = document.querySelectorAll(".reveal, .reveal-l, .reveal-r, .reveal-s");
+
+    var revObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -25px 0px" });
+
+    revEls.forEach(function (el, i) {
+      el.style.transitionDelay = (i % 7) * 0.065 + "s";
+      revObs.observe(el);
+    });
+
+    /* ─────────────────────────────────────
+       COUNTER ANIMATION
+    ───────────────────────────────────── */
+    var statEls = document.querySelectorAll(".sn[data-target]");
+
+    var counterObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        statEls.forEach(function (el) {
+          var target = +el.dataset.target;
+          var sfx    = el.dataset.sfx || "";
+          var start  = null;
+          var dur    = 1700;
+          var step = function (ts) {
+            if (!start) start = ts;
+            var p    = Math.min((ts - start) / dur, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.floor(ease * target) + sfx;
+            if (p < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        });
+        counterObs.disconnect();
+      }
+    }, { threshold: 0.5 });
+
+    var statsRow = document.querySelector(".stats-row");
+    if (statsRow) counterObs.observe(statsRow);
+
+    /* ─────────────────────────────────────
+       SKILL BARS — animate on visibility
+    ───────────────────────────────────── */
+    function animateSkillBars(container) {
+      var bars = container ? container.querySelectorAll(".skill-bar-fill") : document.querySelectorAll(".skill-bar-fill");
+      bars.forEach(function (bar) {
+        var pct = bar.dataset.pct;
+        // small delay so transition triggers
+        setTimeout(function () { bar.style.width = pct + "%"; }, 80);
+      });
+    }
+
+    /* ─────────────────────────────────────
+       SKILL TABS
+    ───────────────────────────────────── */
+    var skillTabs = document.querySelectorAll(".skill-tab");
+    var skillPanels = document.querySelectorAll(".skills-panel");
+
+    skillTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var panelId = "panel-" + tab.dataset.panel;
+
+        skillTabs.forEach(function (t) { t.classList.remove("active"); });
+        skillPanels.forEach(function (p) { p.classList.remove("active"); });
+
+        tab.classList.add("active");
+        var panel = document.getElementById(panelId);
+        if (panel) {
+          panel.classList.add("active");
+          // Reset + re-animate bars in the newly shown panel
+          panel.querySelectorAll(".skill-bar-fill").forEach(function (b) {
+            b.style.width = "0%";
+          });
+          animateSkillBars(panel);
+        }
+      });
+    });
+
+    // Animate initial (frontend) panel bars on scroll into view
+    var skillSection = document.getElementById("skills");
+    if (skillSection) {
+      var skillObs = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          var activePanel = document.querySelector(".skills-panel.active");
+          if (activePanel) animateSkillBars(activePanel);
+          skillObs.disconnect();
+        }
+      }, { threshold: 0.2 });
+      skillObs.observe(skillSection);
+    }
+
+    /* ─────────────────────────────────────
+       HERO IMAGE CROSSFADE
+    ───────────────────────────────────── */
+    var heroBg   = document.getElementById("heroBg");
+    var heroImgs = [
+      "assets/images/pics1.JPEG",
+      "assets/images/pics2.JPEG",
+      "assets/images/pics4.JPEG"
+    ];
+
+    if (heroBg) {
+      // Mark initial image as loaded
+      heroBg.addEventListener("load", function () { heroBg.classList.add("loaded"); });
+      if (heroBg.complete) heroBg.classList.add("loaded");
+
+      var idx = 0;
+      setInterval(function () {
+        heroBg.style.transition = "opacity .6s ease";
+        heroBg.style.opacity = "0";
+        setTimeout(function () {
+          idx = (idx + 1) % heroImgs.length;
+          heroBg.src = heroImgs[idx];
+          heroBg.onload = function () {
+            heroBg.style.opacity = "1";
+          };
+        }, 620);
+      }, 5200);
+    }
+
+    /* ─────────────────────────────────────
+       SERVICE CARD TILT
+    ───────────────────────────────────── */
+    if (window.matchMedia("(pointer: fine)").matches) {
+      document.querySelectorAll(".svc-card").forEach(function (card) {
+        card.addEventListener("mousemove", function (e) {
+          var r = card.getBoundingClientRect();
+          var x = ((e.clientX - r.left) / r.width  - 0.5) * 8;
+          var y = ((e.clientY - r.top)  / r.height - 0.5) * -8;
+          card.style.transform = "perspective(700px) rotateX(" + y + "deg) rotateY(" + x + "deg) translateZ(4px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          card.style.transform = "";
+        });
+      });
+    }
+
+    /* ─────────────────────────────────────
+       BACK TO TOP
+    ───────────────────────────────────── */
+    var btt = document.getElementById("btt");
+
+    function toggleBtt() {
+      if (btt) btt.classList.toggle("show", window.scrollY > 500);
+    }
+
+    if (btt) {
+      btt.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    /* ─────────────────────────────────────
+       CONTACT FORM → WHATSAPP
+    ───────────────────────────────────── */
+    var sendBtn = document.getElementById("sendBtn");
+    var fOk     = document.getElementById("fOk");
+
+    if (sendBtn) {
+      sendBtn.addEventListener("click", function () {
+        var name    = (document.getElementById("fname")?.value    || "").trim();
+        var contact = (document.getElementById("femail")?.value   || "").trim();
+        var service = (document.getElementById("fservice")?.value || "").trim();
+        var budget  = (document.getElementById("fbudget")?.value  || "").trim();
+        var msg     = (document.getElementById("fmsg")?.value     || "").trim();
+
+        if (!name || !contact || !msg) {
+          var orig = sendBtn.textContent;
+          sendBtn.textContent     = "Please fill all required fields ✕";
+          sendBtn.style.background = "#8B2500";
+          setTimeout(function () {
+            sendBtn.textContent     = orig;
+            sendBtn.style.background = "";
+          }, 2400);
+          return;
+        }
+
+        var text = encodeURIComponent(
+          "*New Enquiry — SOMI-TECH*\n\n" +
+          "👤 *Name:* " + name + "\n" +
+          "📞 *Contact:* " + contact + "\n" +
+          "🔧 *Service:* " + (service || "Not specified") + "\n" +
+          "💰 *Budget:* " + (budget || "Not specified") + "\n\n" +
+          "💬 *Message:*\n" + msg
+        );
+
+        sendBtn.textContent = "Opening WhatsApp…";
+
+        setTimeout(function () {
+          window.open("https://wa.me/2347083026746?text=" + text, "_blank");
+
+          if (fOk) {
+            fOk.classList.add("show");
+            setTimeout(function () { fOk.classList.remove("show"); }, 6000);
+          }
+
+          sendBtn.textContent = "Send via WhatsApp →";
+
+          // Clear form
+          ["fname", "femail", "fmsg"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.value = "";
+          });
+          var srv = document.getElementById("fservice");
+          var bgt = document.getElementById("fbudget");
+          if (srv) srv.selectedIndex = 0;
+          if (bgt) bgt.selectedIndex = 0;
+        }, 600);
+      });
+    }
+
+    /* ─────────────────────────────────────
+       KEYBOARD NAVIGATION — DRAWER
+    ───────────────────────────────────── */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && drawer && drawer.classList.contains("open")) {
+        closeDrawer();
+      }
+    });
+
+    /* ─────────────────────────────────────
+       LAZY IMAGE FADE-IN
+    ───────────────────────────────────── */
+    var lazyImgs = document.querySelectorAll("img[loading='lazy']");
+    lazyImgs.forEach(function (img) {
+      img.style.opacity = "0";
+      img.style.transition = "opacity .5s ease";
+      img.addEventListener("load", function () {
+        img.style.opacity = "1";
+      });
+      if (img.complete) img.style.opacity = "1";
+    });
+
+    /* ─────────────────────────────────────
+       GALLERY ITEM STAGGER
+    ───────────────────────────────────── */
+    var galItems = document.querySelectorAll(".g-item");
+    var galObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (entry.isIntersecting) {
+          setTimeout(function () {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "none";
+          }, i * 80);
+          galObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    galItems.forEach(function (item) {
+      item.style.opacity = "0";
+      item.style.transform = "translateY(18px)";
+      item.style.transition = "opacity .55s ease, transform .55s ease";
+      galObs.observe(item);
+    });
+
+    /* ─────────────────────────────────────
+       SOCIAL CARD STAGGER
+    ───────────────────────────────────── */
+    var socCards = document.querySelectorAll(".social-card");
+    var socObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "none";
+          socObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    socCards.forEach(function (card, i) {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(16px)";
+      card.style.transition = "opacity .5s " + (i * 0.06) + "s ease, transform .5s " + (i * 0.06) + "s ease, border-color .3s, background .3s, box-shadow .3s";
+      socObs.observe(card);
+    });
+
+    /* ─────────────────────────────────────
+       PROCESS STEP STAGGER
+    ───────────────────────────────────── */
+    var psSteps = document.querySelectorAll(".process-step");
+    var psObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "none";
+          psObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    psSteps.forEach(function (step, i) {
+      step.style.opacity = "0";
+      step.style.transform = "translateY(20px)";
+      step.style.transition = "opacity .6s " + (i * 0.12) + "s ease, transform .6s " + (i * 0.12) + "s ease, background .3s";
+      psObs.observe(step);
+    });
+
+    /* ─────────────────────────────────────
+       CONSOLE BRANDING
+    ───────────────────────────────────── */
+    console.log("%cSOMI-TECH ⚡", "color:#e8a832;font-size:1.6rem;font-weight:800;font-family:'Courier New',monospace;letter-spacing:.05em;");
+    console.log("%cThe thin line between YOU & TECH", "color:#6b6255;font-size:.9rem;font-family:'Courier New',monospace;");
+    console.log("%cBuilt by Somina Oje | Port Harcourt, Nigeria 🇳🇬", "color:#c9891c;font-size:.8rem;font-family:'Courier New',monospace;");
+    console.log("%c⚡ WhatsApp: +234 708 302 6746", "color:#25D366;font-size:.8rem;font-family:'Courier New',monospace;");
+
+  })();
+  </script>
+
+</body>
+</html>
